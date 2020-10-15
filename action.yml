@@ -1,11 +1,21 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'next-semver-action'
+description: 'A GitHub action that generates the next semantic version and creates a release'
+author: 'MECLab'
 inputs:
-  milliseconds: # change this
+  bump:
+    description: 'The semantic version that is to be bumped. Either major, minor or patch'
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+
+  dry_run:
+    description: 'execute action as a dry run that will not create a release'
+    required: false
+    default: 'false'
+
+  bump_patch_by_default:
+    description: 'bump the patch number by default when no bump label is supplied'
+    required: false
+    default: 'false'
+
 runs:
   using: 'node12'
   main: 'dist/index.js'
