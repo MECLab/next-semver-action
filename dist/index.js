@@ -8256,12 +8256,12 @@ class SemanticVersionService {
     }
     async nextVersion(req) {
         const { status, data } = await this.octokit.getLatestRelease();
-        if (status !== 200 || !data) {
+        if (status !== 200) {
             const message = "failed while attempting to retrieve the latest release";
             core_1.default.error(message);
             throw Error(message);
         }
-        const { tag_name } = data;
+        const { tag_name } = data || {};
         const latestVersion = (tag_name && semver_1.default.coerce(tag_name)) || new semver_1.SemVer("0.0.0");
         if (req.bump) {
             const nextVersion = semver_1.default.inc(latestVersion, req.bump) || new semver_1.SemVer("0.0.0");
