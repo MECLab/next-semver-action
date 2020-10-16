@@ -12,13 +12,13 @@ export class SemanticVersionService {
 
     async nextVersion(req: NextVersionRequest): Promise<NextVersion | null> {
         const {status, data} = await this.octokit.getLatestRelease()
-        if (status !== 200 || !data) {
+        if (status !== 200) {
             const message = "failed while attempting to retrieve the latest release"
             core.error(message)
             throw Error(message)
         }
 
-        const {tag_name} = data
+        const {tag_name} = data || {}
         const latestVersion: SemVer = (tag_name && semver.coerce(tag_name)) || new SemVer("0.0.0")
 
         if (req.bump) {
