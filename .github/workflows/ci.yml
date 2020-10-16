@@ -5,6 +5,18 @@ on:
     types: [ opened ]
 
 jobs:
+  next_version:
+    name: 🔖 next version
+
+    runs-on: ubuntu-latest
+    container: docker://node:latest
+
+    steps:
+      - name: PR label
+        uses: MECLab/find-pr-label-action@master
+        with:
+          match_any: "major|minor"
+
   build:
     name: 🧱 build
 
