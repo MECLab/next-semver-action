@@ -72,6 +72,14 @@ jobs:
       - name: 🧳 pack
         run: make package
 
+      - id: bump
+        name: 📤 bump
+        uses: ./
+        with:
+          bump: ${{ steps.pr_label.outputs.match }}
+          bump_patch_by_default: "true"
+          token: ${{ github.token }}
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v2
         with:
