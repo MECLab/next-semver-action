@@ -12,10 +12,23 @@ jobs:
     container: docker://node:latest
 
     steps:
-      - name: PR label
+      - uses: actions/checkout@v2
+      - id: pr_label
+        name: 🔖 PR label
         uses: MECLab/find-pr-label-action@master
         with:
           match_any: "major|minor"
+
+      - id: bump
+        name: 🎚️ bump
+        uses: ./
+        with:
+          bump: ${{ steps.pr_label.outputs.match }}
+          bump_patch_by_default: "true"
+
+    outputs:
+      version: ${{ steps.bump.outputs.version }}
+      tag: ${{ steps.bump.outputs.tag }}
 
   build:
     name: 🧱 build
