@@ -114,6 +114,7 @@ jobs:
         with:
           bump: ${{ steps.pr_label.outputs.match }}
           bump_patch_by_default: "true"
+          token: ${{ github.token }}
 
     outputs:
       version: ${{ steps.bump.outputs.version }}

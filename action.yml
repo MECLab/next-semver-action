@@ -12,7 +12,7 @@ inputs:
     default: 'false'
 
   token:
-    description: 'GitHub api token ${{ github.token }}'
+    description: 'GitHub api token i.e. github.token'
     required: true
 
 runs:
