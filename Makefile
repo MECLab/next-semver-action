@@ -13,7 +13,7 @@ package:
 	./node_modules/.bin/ncc build --source-map --license licenses.txt
 
 test-unit:
-	npx jest __tests__/unit/
+	npx jest src/__tests__/unit/
 
 # local development utility commands
 ready: format build package
