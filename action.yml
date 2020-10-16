@@ -11,9 +11,9 @@ inputs:
     required: false
     default: 'false'
 
-  token:
-    description: 'GitHub api token i.e. github.token'
-    required: true
+#  token:
+#    description: 'GitHub api token i.e. github.token'
+#    required: true
 
 runs:
   using: 'node12'

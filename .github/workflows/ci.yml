@@ -75,6 +75,8 @@ jobs:
       - id: bump
         name: 📤 bump
         uses: ./
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           bump: ${{ steps.pr_label.outputs.match }}
           bump_patch_by_default: "true"
