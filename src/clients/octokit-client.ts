@@ -13,7 +13,7 @@ export class OctokitClient {
         const {repo} = github.context
         try {
             core.debug(`retrieving latest release: ${JSON.stringify(repo)}`)
-            return this.octokit.repos.getLatestRelease(repo)
+            return await this.octokit.repos.getLatestRelease(repo)
         } catch (e) {
             core.error(`failed while attempting to retrieve the latest release: ${JSON.stringify({repo, error: e})}`)
             return {status: 1, data: null}
