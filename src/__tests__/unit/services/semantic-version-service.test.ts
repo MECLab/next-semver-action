@@ -1,6 +1,7 @@
 import {SemanticVersionService} from "../../../services/semantic-version-service"
 import {NextVersionRequest, SemVerLabels} from "../../../models/next-version-request"
 import {OctokitClient} from '../../../clients/octokit-client'
+import {OctokitRelease} from '../../../models/octokit-models'
 
 jest.mock("@actions/core", () => ({
     debug: (message: string) => console.debug(`core.debug: ${message}`),
@@ -10,29 +11,24 @@ jest.mock("@actions/core", () => ({
 }))
 jest.mock("../../../clients/octokit-client")
 describe("nextVersion", () => {
-    const response = {
-        status: 200,
-        data: {
-            id: 1,
-            name: "v1.0.0",
-            body: "body",
-            tag_name: "v1.0.0",
+    const response: OctokitRelease = {
+        id: 1,
+        name: "v1.0.0",
+        body: "body",
+        tag_name: "v1.0.0",
 
-            prerelease: false,
-            created_at: "2020-10-16T18:57",
-            published_at: "2020-10-16T18:57"
-        }
+        prerelease: false,
+        created_at: "2020-10-16T18:57",
+        published_at: "2020-10-16T18:57"
     }
 
     beforeEach(() => {
         OctokitClient.prototype.getRelease = jest.fn().mockReturnValue(response)
     })
 
-    test("it should throw an error when octokit.getLatestRelease fails", async () => {
+    test("it should throw an error when octokit.getRelease fails", async () => {
         // arrange
-        OctokitClient.prototype.getRelease = jest.fn().mockReturnValue({
-            status: 400
-        })
+        OctokitClient.prototype.getRelease = jest.fn().mockReturnValue(null)
 
         const sut = new SemanticVersionService("token")
         const request: NextVersionRequest = {

@@ -1,8 +1,3 @@
-export interface OctokitResponse<T> {
-    successful: boolean
-    data?: T
-}
-
 export interface OctokitRelease {
     id: number
     tag_name: string
