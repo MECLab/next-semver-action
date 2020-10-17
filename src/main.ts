@@ -22,7 +22,7 @@ async function run(): Promise<void> {
 
         core.setOutput("version", version)
     } catch (error) {
-        core.error(`failed during execution: ${error}`)
+        core.error(`failed during execution => ${error}`)
         core.setFailed(error.message)
     }
 }

@@ -16,7 +16,7 @@ export class OctokitClient {
             return this.octokit.repos.getLatestRelease(repo)
         } catch (e) {
             core.error(`failed while attempting to retrieve the latest release: ${JSON.stringify({repo, error: e})}`)
-            throw e
+            return {status: 1 data: null}
         }
     }
 }
