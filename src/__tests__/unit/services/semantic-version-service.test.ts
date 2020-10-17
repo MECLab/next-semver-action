@@ -3,8 +3,10 @@ import {NextVersionRequest, SemVerLabels} from "../../../models/next-version-req
 import {OctokitClient} from '../../../clients/octokit-client'
 
 jest.mock("@actions/core", () => ({
+    debug: (message: string) => console.debug(`core.debug: ${message}`),
     info: (message: string) => console.info(`core.info: ${message}`),
-    error: (message: string) => console.info(`core.error: ${message}`)
+    warn: (message: string) => console.warn(`core.warn: ${message}`),
+    error: (message: string) => console.error(`core.error: ${message}`)
 }))
 jest.mock("../../../clients/octokit-client")
 describe("nextVersion", () => {
