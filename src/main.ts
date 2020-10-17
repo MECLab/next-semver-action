@@ -9,7 +9,8 @@ async function run(): Promise<void> {
         const token = process.env.GITHUB_TOKEN
 
         if (!token) {
-            throw Error("GitHub token was not was not specified")
+            core.setFailed("GitHub token was not was not specified")
+            return
         }
 
         const request = {
@@ -21,6 +22,7 @@ async function run(): Promise<void> {
 
         core.setOutput("version", version)
     } catch (error) {
+        core.error(`failed during execution: ${error}`)
         core.setFailed(error.message)
     }
 }
