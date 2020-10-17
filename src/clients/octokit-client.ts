@@ -1,10 +1,10 @@
-import github, {context} from "@actions/github"
+import {context, getOctokit} from "@actions/github"
 import {OctokitRelease, OctokitResponse} from "../models/octokit-models"
 
 export class OctokitClient {
     private readonly octokit
     constructor(private readonly token: string) {
-        this.octokit = github.getOctokit(token)
+        this.octokit = getOctokit(token)
     }
 
     async getLatestRelease(): Promise<OctokitResponse<OctokitRelease>> {
