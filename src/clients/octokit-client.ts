@@ -9,7 +9,7 @@ export class OctokitClient {
         this.octokit = github.getOctokit(token)
     }
 
-    async getLatestRelease(): Promise<OctokitResponse<OctokitRelease>> {
+    async getRelease(): Promise<OctokitResponse<OctokitRelease>> {
         const {repo} = github.context
         try {
             core.debug(`retrieving latest release: ${JSON.stringify(repo)}`)

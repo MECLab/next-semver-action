@@ -25,12 +25,12 @@ describe("nextVersion", () => {
     }
 
     beforeEach(() => {
-        OctokitClient.prototype.getLatestRelease = jest.fn().mockReturnValue(response)
+        OctokitClient.prototype.getRelease = jest.fn().mockReturnValue(response)
     })
 
     test("it should throw an error when octokit.getLatestRelease fails", async () => {
         // arrange
-        OctokitClient.prototype.getLatestRelease = jest.fn().mockReturnValue({
+        OctokitClient.prototype.getRelease = jest.fn().mockReturnValue({
             status: 400
         })
 
@@ -79,7 +79,7 @@ describe("nextVersion", () => {
 
     test("it should bump when no release yet exists", async () => {
         // arrange
-        OctokitClient.prototype.getLatestRelease = jest.fn().mockReturnValue({
+        OctokitClient.prototype.getRelease = jest.fn().mockReturnValue({
             status: 200,
             data: null
         })
