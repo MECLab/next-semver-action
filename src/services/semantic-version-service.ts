@@ -13,7 +13,7 @@ export class SemanticVersionService {
     async nextVersion(req: NextVersionRequest): Promise<NextVersion | null> {
         core.debug("nextVersion: starting to generate the next semantic version")
 
-        const {status, data} = await this.octokit.getLatestRelease()
+        const {status, data} = await this.octokit.getRelease()
         if (status !== 200) {
             const message = "failed while attempting to retrieve the latest release"
             core.error(message)
