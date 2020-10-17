@@ -14,6 +14,7 @@ export class SemanticVersionService {
         core.debug("nextVersion: starting to generate the next semantic version")
 
         const {status, data} = await this.octokit.getRelease()
+        core.debug(`received response from octokit: ${JSON.stringify({status, data})}`)
         if (status !== 200) {
             const message = "failed while attempting to retrieve the latest release"
             core.error(message)
