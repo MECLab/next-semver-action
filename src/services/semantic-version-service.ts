@@ -1,4 +1,4 @@
-import core from "@actions/core"
+import * as core from "@actions/core"
 import semver, {SemVer} from "semver"
 import {NextVersionRequest} from "../models/next-version-request"
 import {NextVersion} from "../models/next-version"
@@ -11,6 +11,8 @@ export class SemanticVersionService {
     }
 
     async nextVersion(req: NextVersionRequest): Promise<NextVersion | null> {
+        core.debug("nextVersion: starting to generate the next semantic version")
+
         const {status, data} = await this.octokit.getLatestRelease()
         if (status !== 200) {
             const message = "failed while attempting to retrieve the latest release"
