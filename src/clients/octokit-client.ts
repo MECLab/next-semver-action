@@ -18,7 +18,7 @@ export class OctokitClient {
         } catch (error) {
             const {status} = error
             if (status === 404) {
-                core.info("No release was found")
+                core.info("No release returned from github")
                 return null
             }
 

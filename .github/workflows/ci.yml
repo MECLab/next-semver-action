@@ -72,15 +72,6 @@ jobs:
       - name: 🧳 pack
         run: make package
 
-      - id: bump
-        name: 📤 bump
-        uses: ./
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          bump: ${{ steps.pr_label.outputs.match }}
-          bump_patch_by_default: "true"
-
       - name: Upload build artifact
         uses: actions/upload-artifact@v2
         with:
@@ -118,12 +109,13 @@ jobs:
           match_any: "major|minor"
 
       - id: bump
-        name: 🎚️ bump
+        name: 📤 bump
         uses: ./
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           bump: ${{ steps.pr_label.outputs.match }}
           bump_patch_by_default: "true"
-          token: ${{ github.token }}
 
     outputs:
       version: ${{ steps.bump.outputs.version }}
