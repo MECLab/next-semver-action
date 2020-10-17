@@ -1,6 +1,6 @@
 export interface OctokitResponse<T> {
-    status: number
-    data: T | null | undefined
+    successful: boolean
+    data?: T
 }
 
 export interface OctokitRelease {
