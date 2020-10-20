@@ -6,15 +6,14 @@ inputs:
     description: 'The semantic version that is to be bumped. Either major, minor or patch'
     required: true
 
-  dry_run:
-    description: 'execute action as a dry run that will not create a release'
-    required: false
-    default: 'false'
-
   bump_patch_by_default:
     description: 'bump the patch number by default when no bump label is supplied'
     required: false
     default: 'false'
+
+#  token:
+#    description: 'GitHub api token i.e. github.token'
+#    required: true
 
 runs:
   using: 'node12'

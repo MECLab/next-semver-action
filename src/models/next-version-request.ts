@@ -1,6 +1,5 @@
-interface NextSemVerRequest {
-    bump: string
-    dry_run?: boolean
+export interface NextVersionRequest {
+    bump: SemVerLabels | null
     bump_patch_by_default?: boolean
 }
 
