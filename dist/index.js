@@ -10514,7 +10514,7 @@ class OctokitClient {
                 core.info("No release returned from github");
                 return null;
             }
-            core.error(`failed while attempting to retrieve the latest release: ${JSON.stringify({ repo, error })}`);
+            core.warning(`failed while attempting to retrieve the latest release: ${JSON.stringify({ repo, error })}`);
             throw error;
         }
     }
@@ -12500,7 +12500,7 @@ class SemanticVersionService {
         const release = await this.octokit.getRelease();
         if (!release) {
             const message = "failed while attempting to retrieve the latest release";
-            core.error(message);
+            core.warning(message);
             throw Error(message);
         }
         core.debug(`received response from octokit: ${JSON.stringify(release)}`);
