@@ -62,6 +62,8 @@ jobs:
 
       # run tests
       - name: 🔩 Run Integration Tests
+        env:
+          - GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: make test-integration
 
   package:
@@ -109,7 +111,7 @@ jobs:
     runs-on: ubuntu-latest
     container: docker://node:latest
 
-    needs: package
+    needs: [package, test-unit, test-integration]
 
     steps:
       - uses: actions/checkout@v2
