@@ -16,7 +16,7 @@ export class SemanticVersionService {
         const release = await this.octokit.getRelease()
         if (!release) {
             const message = "failed while attempting to retrieve the latest release"
-            core.error(message)
+            core.warning(message)
             throw Error(message)
         }
 

@@ -12,6 +12,9 @@ build:
 package:
 	./node_modules/.bin/ncc build --source-map --license licenses.txt
 
+test-integration:
+	npx jest src/__tests__/integration/
+
 test-unit:
 	npx jest src/__tests__/unit/
 

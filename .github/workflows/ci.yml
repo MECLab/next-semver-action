@@ -30,8 +30,8 @@ jobs:
           name: lib
           path: ./lib
 
-  test:
-    name: 🧪 test
+  test-unit:
+    name: 🧪 unit test
 
     runs-on: ubuntu-latest
     container: docker://node:latest
@@ -46,6 +46,23 @@ jobs:
       # run tests
       - name: 🧪 Run Unit Tests
         run: make test-unit
+
+  test-integration:
+    name: 🔩 integration test
+
+    runs-on: ubuntu-latest
+    container: docker://node:latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # install dependencies
+      - name: Install Dependencies
+        run: npm ci
+
+      # run tests
+      - name: 🔩 Run Integration Tests
+        run: make test-integration
 
   package:
     name: 📦 package

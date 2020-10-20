@@ -10,6 +10,7 @@ jest.mock("@actions/core", () => ({
     error: (message: string) => console.error(`core.error: ${message}`)
 }))
 jest.mock("../../../clients/octokit-client")
+
 describe("nextVersion", () => {
     const response: OctokitRelease = {
         id: 1,
