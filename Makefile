@@ -18,5 +18,7 @@ test-integration:
 test-unit:
 	npx jest src/__tests__/unit/
 
+test: test-unit test-integration
+
 # local development utility commands
 ready: format build package

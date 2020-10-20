@@ -27,7 +27,7 @@ describe("nextVersion", () => {
         OctokitClient.prototype.getRelease = jest.fn().mockReturnValue(response)
     })
 
-    test("it should throw an error when octokit.getRelease fails", async () => {
+    test("it should bump release when no release exists", async () => {
         // arrange
         OctokitClient.prototype.getRelease = jest.fn().mockReturnValue(null)
 
@@ -37,8 +37,15 @@ describe("nextVersion", () => {
             bump_patch_by_default: true
         }
 
-        // act + assert
-        await expect(() => sut.nextVersion(request)).rejects.toThrow();
+        // act
+        const target = await sut.nextVersion(request)
+
+        // assert
+        expect(target).not.toBeNull()
+
+        const {version, tag} = target!
+        expect(version).toBe("1.0.0")
+        expect(tag).toBe("v1.0.0")
     })
 
     test("it should bump major release when 'major' bump is supplied", async () => {

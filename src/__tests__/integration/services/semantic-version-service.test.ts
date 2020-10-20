@@ -1,7 +1,6 @@
 import {context} from '@actions/github'
 import {SemanticVersionService} from '../../../services/semantic-version-service'
 import {SemVerLabels} from '../../../models/next-version-request'
-import {createDeflateRaw} from 'zlib'
 
 beforeAll(() => {
     jest.mock("@actions/core", () => ({
@@ -17,16 +16,23 @@ describe("nextVersion", () => {
         jest.spyOn(context, "repo", "get").mockReturnValue({owner: "meclab-bot", repo: "special-octo-lamp"})
     })
 
-    test("it should throw an error when no release exists", () => {
+    test("it should throw an error when no release exists", async () => {
         // arrange
         jest.spyOn(context, "repo", "get").mockReturnValue({owner: "meclab-bot", repo: "urban-doodle"})
         const sut = new SemanticVersionService(process.env.GITHUB_TOKEN!)
         const request = {
-            bump: SemVerLabels.MAJOR
+            bump: SemVerLabels.PATCH
         }
 
-        // act + assert
-        expect(() => sut.nextVersion(request)).rejects.toThrowError("failed while attempting to retrieve the latest release")
+        // act
+        const target = await sut.nextVersion(request)
+
+        // assert
+        expect(target).not.toBeNull()
+
+        const {version, tag} = target!
+        expect(version).toBe("0.0.1")
+        expect(tag).toBe("v0.0.1")
     })
 
     test("it should bump the version when a release exists in the repository", async () => {

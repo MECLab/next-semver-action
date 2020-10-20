@@ -11,17 +11,11 @@ export class SemanticVersionService {
     }
 
     async nextVersion(req: NextVersionRequest): Promise<NextVersion | null> {
-        core.debug("nextVersion: starting to generate the next semantic version")
-
+        core.debug("retrieving latest release for repository")
         const release = await this.octokit.getRelease()
-        if (!release) {
-            const message = "failed while attempting to retrieve the latest release"
-            core.warning(message)
-            throw Error(message)
-        }
 
         core.debug(`received response from octokit: ${JSON.stringify(release)}`)
-        const {tag_name} = release
+        const {tag_name} = release || {}
         const latestVersion: SemVer = (tag_name && semver.coerce(tag_name)) || new SemVer("0.0.0")
 
         if (req.bump) {
