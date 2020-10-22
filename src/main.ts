@@ -19,7 +19,7 @@ async function run(): Promise<void> {
         }
         const service = new SemanticVersionService(token)
         const version = await service.nextVersion(request)
-        core.debug(JSON.stringify(version))
+        core.info(JSON.stringify(version))
 
         core.setOutput("version", version)
     } catch (error) {
