@@ -101,7 +101,7 @@ async function run() {
         };
         const service = new semantic_version_service_1.SemanticVersionService(token);
         const version = await service.nextVersion(request);
-        core.debug(JSON.stringify(version));
+        core.info(JSON.stringify(version));
         core.setOutput("version", version);
     }
     catch (error) {
