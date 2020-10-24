@@ -49,5 +49,5 @@ jobs:
     steps:
       - uses: actions/create-release@v1
         with:
-          tag_name: ${{ jobs.next_version.outputs.tag }}
-          release_name: ${{ jobs.next_version.outputs.tag }}
+          tag_name: ${{ needs.next_version.outputs.tag }}
+          release_name: ${{ needs.next_version.outputs.tag }}
