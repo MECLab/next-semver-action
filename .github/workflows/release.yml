@@ -10,8 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     container: docker://node:latest
 
-    needs: [ package, test-unit, test-integration ]
-
     steps:
       - uses: actions/checkout@v2
       - name: Download dist from package job
