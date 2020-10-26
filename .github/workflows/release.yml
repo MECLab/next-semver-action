@@ -1,0 +1,48 @@
+name: release
+on:
+  push:
+    branches: [master]
+
+jobs:
+  next_version:
+    name: 🔖 next version
+
+    runs-on: ubuntu-latest
+    container: docker://node:latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - id: pr_label
+        name: 🔖 PR label
+        uses: MECLab/find-pr-label-action@master
+        with:
+          match_any: "major|minor"
+
+      - id: bump
+        name: 📤 bump
+        uses: ./
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          bump: ${{ steps.pr_label.outputs.match }}
+
+    outputs:
+      version: ${{ steps.bump.outputs.version }}
+      tag: ${{ steps.bump.outputs.tag }}
+
+  create_release:
+    name: 😁 release
+
+    if: ${{ needs.next_version.outputs.tag != null }}
+    runs-on: ubuntu-latest
+
+    needs: [next_version]
+
+    steps:
+      - uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ needs.next_version.outputs.tag }}
+          release_name: ${{ needs.next_version.outputs.tag }}
