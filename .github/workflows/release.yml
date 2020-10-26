@@ -12,11 +12,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Download dist from package job
-        uses: actions/download-artifact@v2
-        with:
-          name: dist
-          path: ./dist
 
       - id: pr_label
         name: 🔖 PR label
