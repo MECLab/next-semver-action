@@ -31,7 +31,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           bump: ${{ steps.pr_label.outputs.match }}
-          bump_patch_by_default: "true"
 
     outputs:
       version: ${{ steps.bump.outputs.version }}
