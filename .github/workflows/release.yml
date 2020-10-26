@@ -1,6 +1,7 @@
 name: release
 on:
-  push:
+  pull_request:
+    type: [closed]
     branches: [master]
 
 jobs:
