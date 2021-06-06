@@ -22,10 +22,7 @@ export class OctokitClient {
                 return null
             }
 
-            core.warning(`failed while attempting to retrieve the latest release: ${JSON.stringify({
-                repo, 
-                httpError: { status, message}
-            })}`)
+            core.warning(`failed while attempting to retrieve the latest release: ${JSON.stringify({repo, httpError: {status, message}})}`)
             throw error
         }
     }
