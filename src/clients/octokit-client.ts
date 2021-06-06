@@ -16,13 +16,13 @@ export class OctokitClient {
             const {data} = await this.octokit.repos.getLatestRelease(repo)
             return data
         } catch (error) {
-            const {status} = error
+            const {status, message} = error
             if (status === 404) {
                 core.info("No release returned from github")
                 return null
             }
 
-            core.warning(`failed while attempting to retrieve the latest release: ${JSON.stringify({repo, error})}`)
+            core.warning(`failed while attempting to retrieve the latest release: ${JSON.stringify({repo, httpError: {status, message}})}`)
             throw error
         }
     }
